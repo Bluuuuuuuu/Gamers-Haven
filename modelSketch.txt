@@ -1,0 +1,49 @@
+type: E-Commerce API
+
+
+Model User
+firstName - string
+lastName - string 
+email - string
+password - string
+mobileNo - string
+isAdmin - boolean
+		  default: false
+
+
+Model Product
+name - string
+description - string
+category - string
+price - number
+isActive - boolean
+		   default: true
+createdOn - date
+	        default: new Date
+orders: [
+{
+	orderId
+	quantity
+}
+]
+
+associative entity - two way embed
+{
+	orderId
+	productId
+	quantity
+}
+
+
+Model Order 
+userId - string - (customer ID)
+totalAmount - number
+purchasedOn - date
+              default: new Date
+product - 
+[
+	{
+		productId
+		quantity
+	}
+]
