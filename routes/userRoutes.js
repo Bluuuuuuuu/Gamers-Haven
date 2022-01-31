@@ -20,4 +20,7 @@ router.put('/editRole1/:id', verify, verifyAdmin, userControllers.editUserRoleCl
  //edit details (clients)
 router.put('/editUserDetails', verify, userControllers.editUserDetails);
 
+
+
+
 module.exports = router;

@@ -1,0 +1,49 @@
+module.exports.enroll = async (req,res) => {
+	
+	//check if the user is Admin, if yes, the use can not proceed
+	if(req.user.isAdmin) {
+		return res.send("Action Forbidden")
+	}
+
+	//created and defined a variable isUserUpdated
+	//check if the user is present in User collection then set courseId value from the body.courseId
+	//push the courseId to the enrollments array
+	let isUserUpdated = await User.findById(req.user.id).then(user => {
+
+	
+		let newEnrollment = {
+			courseId: req.body.courseId
+		}
+
+	
+		user.enrollments.push(newEnrollment);
+
+	
+		return user.save().then(user => true).catch(err => err.message)
+
+	})
+
+	if(isUserUpdated !== true) {
+		return res.send({message: isUserUpdated})
+	}
+
+	let isCourseUpdated  = await Course.findById(req.body.courseId).then(course => {
+
+		let enrollee = {
+			userId: req.user.id
+		}
+
+		course.enrollees.push(enrollee);
+
+		return course.save().then(course => true).catch(err => err.message)
+	})
+
+	if(isCourseUpdated !== true){
+		return res.send({message: isCourseUpdated})
+	}
+
+	if(isUserUpdated && isCourseUpdated){
+		return res.send({message: "Enrolled Successfully."})
+	}
+
+}

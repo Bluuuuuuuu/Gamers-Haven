@@ -5,11 +5,9 @@ const orderSchema = new mongoose.Schema({
 
 	userId: {
 		type: String,
-
 	},
 	totalAmount: {
 		type: Number,
-
 	},
 	purchasedOn: {
 		type: Date,
@@ -27,9 +25,6 @@ const orderSchema = new mongoose.Schema({
 		}
 	}
 	]
-	
 })
-
-
 
 module.exports = mongoose.model("Order", orderSchema);
