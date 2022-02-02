@@ -5,7 +5,9 @@ const auth = require('../auth');
 const {verify, verifyAdmin} = auth;
 
 
-router.post('/', verify, orderControllers.createCart);
-/*router.post('/addToCart/:id', verify, orderControllers.addToCart);
-*/
+router.post('/', verify, orderControllers.order); //add order
+router.get('/displayOrder', verify, orderControllers.displayUserOrder); //display user order details
+router.get('/displayOrders', verify, verifyAdmin, orderControllers.displayOrders); //display orders
+/*router.get('/addToCart', verify, orderControllers.addToCart);*/ //display user order details
+
 module.exports = router;
