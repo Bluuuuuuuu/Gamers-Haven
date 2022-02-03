@@ -19,8 +19,8 @@ for(let obj of req.body.productsPurchased) {
 
 	const result = await Product.findById(obj.productId)
 	.then(products => {
-		let meh = products.price * obj.quantity;		
-		totalAmountsPerProduct.push(meh);
+		let totalAmountPerProduct = products.price * obj.quantity;		
+		totalAmountsPerProduct.push(totalAmountPerProduct);
 	})
 	.catch(error => res.send(error)); 
 }
