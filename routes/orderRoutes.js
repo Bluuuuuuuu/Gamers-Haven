@@ -7,7 +7,7 @@ const {verify, verifyAdmin} = auth;
 
 
 
-router.post('/', verify, orderControllers.order); //add order
+router.post('/', verify, /*orderControllers.computeTotalPerProduct*/ orderControllers.order); //add order
 router.get('/displayOrder', verify, orderControllers.displayUserOrder); //display user order details
 router.get('/displayOrders', verify, verifyAdmin, orderControllers.displayOrders); //display orders
 router.put('/cancelOrder/:id', verify, orderControllers.cancelOrder); //enables clients to cancel order

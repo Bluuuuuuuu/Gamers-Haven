@@ -4,37 +4,45 @@ const User = require("../models/User");
 const auth = require("../auth");
 
 
-//create order (client)
-module.exports.order = (req,res) => {
 
+
+//create order (client)
+module.exports.order = async (req,res) => {
 	if(req.user.isAdmin) {
 		return res.send("Action Forbidden")//check if the user is Admin, if yes, the user can not proceed
 	}
-	
+
+let totalAmountsPerProduct = [] //array to pass computed values each products
+
+//push each totalAmountPerProduct to totalAmountsPerProduct
+for(let obj of req.body.productsPurchased) { 
+
+	const result = await Product.findById(obj.productId)
+	.then(products => {
+		let meh = products.price * obj.quantity;		
+		totalAmountsPerProduct.push(meh);
+	})
+	.catch(error => res.send(error)); 
+}
+
+		//add each totalAmount per product
+		const reducer = (accumulator, curr) => accumulator + curr;
+		let totalAmount = totalAmountsPerProduct.reduce(reducer);
+		//console.log(totalAmount);
+		
 			let newOrder = new Order({//inserting a document to db
 				userId: req.user.id,
 				clientName: req.user.name,
-				totalAmount: req.body.totalAmount,
+				totalAmount: totalAmount,
 				productsPurchased: req.body.productsPurchased
 			});
 
-			//check the totalAmount in client
-			if(typeof(req.body.totalAmount) !== Number && req.body.totalAmount === undefined) { 
-				res.send("Invalid total amount entered");
-			}
-			else {
-				let isOrderAdded = newOrder.save(); 
-			}
-			 const order_Id = newOrder.id; //saving new orderId for reference
+			newOrder.save();
 
+			const order_Id = newOrder.id; //saving new orderId for reference
 			//print each product keys as strings
 			let productsForEach = req.body.productsPurchased.forEach(function(products) {
-				
-
-				///PRODUCT.findById
-				Product.findById(products.productId).then(product => {
-					
-
+				Product.findById(products.productId).then(product => {						
 					let productOrders = 
 
 					{
@@ -49,18 +57,17 @@ module.exports.order = (req,res) => {
 			});
 
 			return res.send("Order added.");
-			
-		}	
 
+
+		}	
+		
 //display client's orders
 module.exports.displayUserOrder = (req, res) => {
 	const filter = {userId: req.user.id, };
-		//console.log(req.user.name);
-		//console.log(req.user.id);
-		Order.find(filter) 
-		.then(result => res.send(result))
-		.catch(error => res.send(error));
-	}
+	Order.find(filter) 
+	.then(result => res.send(result))
+	.catch(error => res.send(error));
+}
 
 //display all orders from all clients (admin)
 module.exports.displayOrders = (req,res) => {
@@ -98,5 +105,3 @@ module.exports.cancelledtOrders = (req, res) => {
 	}) 
 	.catch(error => res.send(error));
 }
-
-
