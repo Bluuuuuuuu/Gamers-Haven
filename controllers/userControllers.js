@@ -2,6 +2,9 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const auth = require("../auth");
 
+
+
+
 module.exports.registerUser = (req,res) => { //REGISTER USER
 	User.findOne({email: req.body.email})
 	.then(result => {
@@ -21,7 +24,7 @@ module.exports.registerUser = (req,res) => { //REGISTER USER
 			newUser.save()
 			.then(user => res.send(user))
 			.catch(err => res.send(err));
-				}
+		}
 	})
 	.catch(error => res.send(error));
 }
@@ -32,8 +35,9 @@ module.exports.retrieveAllClients = (req, res) => { //display user details (admi
 		return res.send(foundUsers);
 	})
 	.catch(error => res.send(error));
-		
+
 }
+
 module.exports.loginUser = (req, res) => { //login user
 	User.findOne({email: req.body.email})
 	.then(foundUser => {
@@ -43,10 +47,10 @@ module.exports.loginUser = (req, res) => { //login user
 		else {
 			const isPasswordCorrect = bcrypt.compareSync(req.body.password, foundUser.password); 		
 			if(isPasswordCorrect) {				
-			return res.send({acessToken: auth.createAccessToken(foundUser)});
+				return res.send({acessToken: auth.createAccessToken(foundUser)});
 			}
 			else {
-			return res.send("Incorrect password.");
+				return res.send("Incorrect password.");
 			}
 		}
 	})
@@ -54,15 +58,16 @@ module.exports.loginUser = (req, res) => { //login user
 
 }
 
-module.exports.editUserRoleAdmin = (req, res) => { // client - admin (admin)
-	 User.findByIdAndUpdate(req.params.id, {isAdmin:true}, {new: true})
-	 .then(result =>  res.send(result))
-	 .catch(error => res.send(error));
+module.exports.editUserRoleAdmin = (req, res) => { // update client - admin (admin)
+	User.findByIdAndUpdate(req.params.id, {isAdmin:true}, {new: true})
+	.then(result =>  res.send(result))
+	.catch(error => res.send(error));
 }
-module.exports.editUserRoleClient = (req, res) => { // admin - client
-	 User.findByIdAndUpdate(req.params.id, {isAdmin:false}, {new: true})
-	 .then(result =>  res.send(result))
-	 .catch(error => res.send(error));
+
+module.exports.editUserRoleClient = (req, res) => { // update admin - client
+	User.findByIdAndUpdate(req.params.id, {isAdmin:false}, {new: true})
+	.then(result =>  res.send(result))
+	.catch(error => res.send(error));
 }
 
 module.exports.editUserDetails = (req, res) => { // update client details
@@ -72,7 +77,7 @@ module.exports.editUserDetails = (req, res) => { // update client details
 		mobileNo: req.body.mobileNo
 	}
 
-	 User.findByIdAndUpdate(req.user.id, userUpdates,{new: true})
-	 .then(result =>  res.send(result))
-	 .catch(error => res.send(error));
+	User.findByIdAndUpdate(req.user.id, userUpdates,{new: true})
+	.then(result =>  res.send(result))
+	.catch(error => res.send(error));
 }

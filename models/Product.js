@@ -33,11 +33,11 @@ const productSchema = new mongoose.Schema({
 	{
 		orderId:{
 			type: String,
-			//required: [true, "Order ID is required."]
+			
 		},
 		quantity:{
 			type: Number,
-			//required: [true, "Quantity is required."]
+			
 		}
 	}
 	]

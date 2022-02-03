@@ -18,9 +18,9 @@ Retrieve single product /
 Create Product (Admin only) /
 Update Product information (Admin only) /
 Archive Product (Admin only) /
-Non-admin User checkout (Create Order) 
-Retrieve authenticated user’s orders
-Retrieve all orders (Admin only)
+Non-admin User checkout (Create Order) /
+Retrieve authenticated user’s orders /
+Retrieve all orders (Admin only) /
 
 Stretch Requirements:
 Activate Product (Admin Only) /
@@ -80,11 +80,3 @@ maloneqt
 	"password": "sample123"
 }
 
-
-productId 
-quantity
-
-boughtproduct = product price * quantity
-
-
-totalPrice = sum*boughtproductsprice) 

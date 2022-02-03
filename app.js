@@ -6,11 +6,11 @@ const port = 4000;
 
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.p9on8.mongodb.net/${process.env.DB_DATABASE_NAME}?retryWrites=true&w=majority`,
-	{
-		useNewUrlParser: true, 
-		useUnifiedTopology:true,
-		ignoreUndefined: true,
-	});
+{
+	useNewUrlParser: true, 
+	useUnifiedTopology:true,
+	ignoreUndefined: true,
+});
 
 const db = mongoose.connection;
 

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 module.exports.createAccessToken = (user) => {
 	const data = {
 		id: user._id,
+		name: user.firstName,
 		email: user.email,
 		isAdmin: user.isAdmin
 	}

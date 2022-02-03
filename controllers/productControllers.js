@@ -8,16 +8,16 @@ module.exports.createProduct = (req,res) => { //create product (admin)
 			return res.send("The product you're trying to enter is already listed.");
 		}
 		else {
-		let newProduct = new Product({
-    		name: req.body.name,
-    		category: req.body.category,
-    		description: req.body.description,
-    		price: req.body.price
+			let newProduct = new Product({
+				name: req.body.name,
+				category: req.body.category,
+				description: req.body.description,
+				price: req.body.price
 			});
 			newProduct.save()
 			.then(user => res.send(user))
 			.catch(err => res.send(err));
-				}
+		}
 	})
 	.catch(error => res.send(error));
 }
@@ -65,19 +65,19 @@ module.exports.updateSingleProduct = (req, res) => { //update product details
 		description: req.body.desc,
 		price: req.body.price
 	}
-	 Product.findByIdAndUpdate(req.params.id, updatedProduct,{new: true})
-	 .then(result =>  res.send(result))
-	 .catch(error => res.send(error));
+	Product.findByIdAndUpdate(req.params.id, updatedProduct,{new: true})
+	.then(result =>  res.send(result))
+	.catch(error => res.send(error));
 }
 
 module.exports.activateProduct = (req, res) => { //activate product
-	 Product.findByIdAndUpdate(req.params.id, {isActive:true}, {new: true})
-	 .then(result =>  res.send(result))
-	 .catch(error => res.send(error));
+	Product.findByIdAndUpdate(req.params.id, {isActive:true}, {new: true})
+	.then(result =>  res.send(result))
+	.catch(error => res.send(error));
 }
 
 module.exports.archiveProduct = (req, res) => { //archive product
-	 Product.findByIdAndUpdate(req.params.id, {isActive:false}, {new: true})
-	 .then(result =>  res.send(result))
-	 .catch(error => res.send(error));
+	Product.findByIdAndUpdate(req.params.id, {isActive:false}, {new: true})
+	.then(result =>  res.send(result))
+	.catch(error => res.send(error));
 }
