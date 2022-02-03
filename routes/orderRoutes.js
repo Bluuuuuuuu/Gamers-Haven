@@ -10,7 +10,8 @@ const {verify, verifyAdmin} = auth;
 router.post('/', verify, orderControllers.order); //add order
 router.get('/displayOrder', verify, orderControllers.displayUserOrder); //display user order details
 router.get('/displayOrders', verify, verifyAdmin, orderControllers.displayOrders); //display orders
-/*router.get('/addToCart', verify, orderControllers.addToCart);*/ //display user order details
+router.put('/cancelOrder', verify, orderControllers.cancelOrder); //enables customer to cancel order
+router.get('/cancelledOrders', verify, verifyAdmin, orderControllers.cancelledtOrders); //get cancelled orders (admin)
 
 
 

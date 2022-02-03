@@ -3,64 +3,55 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 const auth = require("../auth");
 
-module.exports.order = async (req,res) => {
+module.exports.order = (req,res) => {
 
 	//check if the user is Admin, if yes, the user can not proceed
 
 	if(req.user.isAdmin) {
 		return res.send("Action Forbidden")
 	}
+		
 			let newOrder = new Order({
     		userId: req.user.id,
-    		totalAmount: req.body.totalAmount
-    		//productsPurchased: [....]
+    		totalAmount: req.body.totalAmount,
+ 			productsPurchased: req.body.productsPurchased
     		});
-			newOrder.save()
+    		//console.log(req.body.productsPurchased);
+			//newOrder.productsPurchased.push(req.body.productsPurchased);	
+			 let isOrderAdded = newOrder.save() 
+		/*	.then(saveOrder =>res.send(newOrder))
+			.catch(err => res.send(err));*/
+
 			const order_Id = newOrder.id; //saving new orderId
+
 			//console.log(order_Id);
-			//return res.send("Order added.");
 			
-				let isOrderUpdated = await Order.findById(order_Id).then(order => {
-				let orderProduct = 																		
-						[
-							{
-								productId: req.body.productId,
-								quantity: req.body.quantity
-							}
-						]	
-						orderProduct.forEach(function(products) {							
-						order.productsPurchased.push(products);
-				})
-			
-				return order.save().then(order => true).catch(err => err.message)
 
-				})
+			//console.log(req.body.productsPurchased);
+			//forEach productId
+			let productsForEach = req.body.productsPurchased.forEach(function(products) {
+				//console.log(products.productId);
+				//console.log(products.productId);
+				//console.log(products.quantity);
+				
+			//let product_Ids = productsForEach.productId;
 
-				if(isOrderUpdated !== true) {
-					return res.send({message: isOrderUpdated})
-				}
-
-
-				let isProductUpdated  = await Product.findById(req.body.productId).then(product => {
+				///PRODUCT.findById
+				Product.findById(products.productId).then(product => {
 				let productOrders = 
+
 				{
 				orderId: order_Id,
-				quantity: req.body.quantity		
+				quantity: products.quantity	
 				}
 
 				product.orders.push(productOrders);
-				return product.save().then(product => true).catch(err => err.message)
+				return product.save();
+
 				})
+				});
 
-				if(isProductUpdated !== true){
-				return res.send({message: isProductUpdated})
-				}
-
-
-			
-				if(isOrderUpdated && isProductUpdated){
-					return res.send({message: "Products added to cart."})
-				}
+			return res.send("Order added.");
 }	
 
 module.exports.displayUserOrder = (req, res) => {
@@ -73,4 +64,22 @@ module.exports.displayOrders = (req,res) => {
 	Order.find({})
 	.then(result => res.send(result))
 	.catch(error => res.send(error));
+}
+
+module.exports.cancelOrder = (req, res) => {
+	const update = {isCancelled: true, reasonOfCancellation: req.body.reason};
+	const filter = {userId: req.user.id};
+	Order.findOneAndUpdate(filter, update, {new: true}) 
+	.then(result => res.send("Order cancelled."))
+	.catch(error => res.send(error));
+}
+module.exports.cancelledtOrders = (req, res) => {
+
+	const filter = {isCancelled: true};
+	Order.find(filter)
+	.then(result => {
+			console.log(result);
+	}) 
+	.catch(error => res.send(error));
+
 }

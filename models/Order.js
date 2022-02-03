@@ -13,15 +13,22 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date()
 	},
+	isCancelled: {
+		type: Boolean,
+		default: false
+	},
+	reasonOfCancellation: {
+		type: String
+	},
 	productsPurchased: [
 	{
 		productId:{
 			type: String,
-			required: [true, "productId ID is required."]
+			//required: [true, "productId ID is required."]
 		},
 		quantity:{
 			type: Number,
-			required: [true, "Quantity is required."]
+			//required: [true, "Quantity is required."]
 		}
 	}
 	]
