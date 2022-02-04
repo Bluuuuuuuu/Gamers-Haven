@@ -23,9 +23,7 @@ db.once('open', ()=>console.log('Connected to MongoDB.'));
 
 /*cors() is used to limit access to your application. With this we can allow/disallow
 certain applications from accessing our app*/
-app.use(cors({
-	origin: ['git.heroku.com/protected-depths-06515.git']
-}));
+app.use(cors());
 app.use(express.json());
 
 const userRoutes = require('./routes/userRoutes');
