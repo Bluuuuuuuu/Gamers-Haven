@@ -12,7 +12,7 @@ Features Required:
 
 User registration /
 User authentication /
-Set user as admin (Admin only) /
+Set user as admin/back to user (Admin only) /
 Retrieve all active products /
 Retrieve single product /
 Create Product (Admin only) /
@@ -22,9 +22,12 @@ Non-admin User checkout (Create Order) /
 Retrieve authenticated user’s orders /
 Retrieve all orders (Admin only) /
 
+
 Stretch Requirements:
 Activate Product (Admin Only) /
 Display Products Per Order (User Only) 
+
+
 
 Data Model Requirements
 User
@@ -80,3 +83,9 @@ maloneqt
 	"password": "sample123"
 }
 
+{
+	"email": "heisenberg@gmail.com",
+	"password": "321"
+}
+
+Enjoy and explore with Aloy in distant lands, fight bigger and more awe-inspiring machines, and encounter astonishing new tribes as you return to the far-future, post-apocalyptic world of Horizon.

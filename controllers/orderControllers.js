@@ -63,7 +63,7 @@ for(let obj of req.body.productsPurchased) {
 		
 //display client's orders
 module.exports.displayUserOrder = (req, res) => {
-	const filter = {userId: req.user.id, };
+	const filter = {userId: req.user.id };
 	Order.find(filter) 
 	.then(result => res.send(result))
 	.catch(error => res.send(error));
@@ -94,6 +94,20 @@ module.exports.cancelOrder = (req, res) => {
 		}
 	})
 	.catch(error => res.send("Invalid orderID."));
+}
+
+module.exports.productsPerOrder = (req, res) => {
+	if(req.user.isAdmin) {//check if the user is Admin, if yes, the user can not proceed
+		return res.send("Action Forbidden")
+	}
+	const filter = {_id: req.params.id, userId: req.user.id};
+
+	Order.findOne(filter) 
+	.then(result =>{		
+		res.send(result.productsPurchased);
+		
+	})
+	.catch(error => res.send(error));
 }
 
 //display all cancelled orders from all clients (admin)

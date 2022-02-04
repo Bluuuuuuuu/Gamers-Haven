@@ -12,6 +12,7 @@ router.get('/displayOrder', verify, orderControllers.displayUserOrder); //displa
 router.get('/displayOrders', verify, verifyAdmin, orderControllers.displayOrders); //display orders
 router.put('/cancelOrder/:id', verify, orderControllers.cancelOrder); //enables clients to cancel order
 router.get('/cancelledOrders', verify, verifyAdmin, orderControllers.cancelledtOrders); //get cancelled orders (admin)
+router.get('/productsPerOrder/:id', verify, orderControllers.productsPerOrder); //get cancelled orders (admin)
 
 
 
