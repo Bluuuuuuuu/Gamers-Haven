@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express'); //import express.js
 const mongoose = require('mongoose'); //import mongoose
+var cors = require('cors')
 const app = express(); //
 const port = process.env.port || 4000;
 
