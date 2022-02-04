@@ -1,13 +1,12 @@
-require('dotenv').config()
 const express = require('express'); //import express.js
 const mongoose = require('mongoose'); //import mongoose
-var cors = require('cors')
+var cors = require('cors');
 const app = express(); //
-const port = process.env.port || 4000;
+const port = process.env.PORT || 4000;
 
 
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.p9on8.mongodb.net/${process.env.DB_DATABASE_NAME}?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://user1-blue:admin123@cluster0.p9on8.mongodb.net/Capstone2-DeVera?retryWrites=true&w=majority`,
 {
 	useNewUrlParser: true, 
 	useUnifiedTopology:true,

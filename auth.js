@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const secret = "userAuthentication97";
 module.exports.createAccessToken = (user) => {
 	const data = {
 		id: user._id,
