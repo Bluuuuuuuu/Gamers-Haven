@@ -15,7 +15,6 @@ mongoose.connect(`mongodb+srv://user1-blue:admin123@cluster0.p9on8.mongodb.net/C
 
 const db = mongoose.connection;
 
-
 db.on('error', console.error.bind(console, "Connection Error."));
 
 db.once('open', ()=>console.log('Connected to MongoDB.'));
@@ -34,6 +33,5 @@ app.use('/orders',orderRoutes);
 
 const productRoutes = require('./routes/productRoutes');
 app.use('/products',productRoutes);
-
 
 app.listen(port, () => console.log(`Server is running at port ${port}`));
