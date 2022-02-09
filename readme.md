@@ -7,6 +7,7 @@ Feel free to navigate using these two accounts below.
 
 ------------------------------------------------------------------------------------
 FOR TESTING PURPOSES ONLY 
+Site Link: https://gamers-haven-website.herokuapp.com/
 
 Admin Credentials: 
 email: "admin@gmail.com"
